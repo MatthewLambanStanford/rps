@@ -6,20 +6,20 @@ let computerScore = 0;
 function getComputerChoice() {
     let selection = ["rock", "paper", "scissors"]
     let computerChoice = getRandomInt(3);
-    return selection[computerChoice];1
+    return selection[computerChoice];
     
 }
-function getHumanChoice() {
-    let temp = prompt("What's your move? (rock, paper, scissors)"); // "rOcK == rock"
-    let humanChoice = temp.toLowerCase(); // either "rock", "paper", "scissors"
+// REMOVED function getHumanChoice() { 
+//     let temp = prompt("What's your move? (rock, paper, scissors)"); // "rOcK == rock"
+//     let humanChoice = temp.toLowerCase(); // either "rock", "paper", "scissors"
 
-    if (["rock", "paper", "scissors"].includes(humanChoice)) {
-        return humanChoice;
-    } else {
-        alert("Invalid choice!");
-        return getHumanChoice();
-    }
-}
+//     if (["rock", "paper", "scissors"].includes(humanChoice)) {
+//         return humanChoice;
+//     } else {
+//         alert("Invalid choice!");
+//         return getHumanChoice();
+//     }
+// }
 
 // generating computer choice
 function getRandomInt(max) {
@@ -42,11 +42,11 @@ function playRound(humanChoice, computerChoice) {
         }
     } else if (humanChoice === "scissors") {
         if (computerChoice === "paper") {
-            computerScore++;
-            return "Computer Wins! Scissors beats Paper!";
-        } else {
             humanScore++;
-            return "Human Wins! Rock beats Scissors!";
+            return "Human Wins! Scissors beats Paper!";
+        } else {
+            computerScore++;
+            return "Computer Wins! Rock beats Scissors!";
         }
     } else if (humanChoice === "paper") {
         if (computerChoice === "rock") {
@@ -59,14 +59,56 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+// buttons for humanSelection
+
 
 function playGame() {
-    for (let i = 0; i < 1; i++) {
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice();
-        console.log("Round " + (i+1) + ": " + playRound(humanSelection, computerSelection));
-    }
-    console.log("Final Score: Human " + humanScore + " - Computer " + computerScore);
+
+
+    const btnRock = document.querySelector("#btnRock");
+    btnRock.addEventListener("click", () => {
+        const result = playRound("rock", getComputerChoice());
+        document.querySelector("#result").textContent = result;
+        document.querySelector("#score").textContent = `Score => Human: ${humanScore}, Computer: ${computerScore}`;
+    });
+
+    const btnPaper = document.querySelector("#btnPaper");
+    btnPaper.addEventListener("click", () => {
+        const result = playRound("paper", getComputerChoice());
+        document.querySelector("#result").textContent = result;
+        document.querySelector("#score").textContent = `Score => Human: ${humanScore}, Computer: ${computerScore}`;
+    });
+    
+    const btnScissors = document.querySelector("#btnScissors");
+    btnScissors.addEventListener("click", () => {
+        const result = playRound("scissors", getComputerChoice());
+        document.querySelector("#result").textContent = result;
+        document.querySelector("#score").textContent = `Score => Human: ${humanScore}, Computer: ${computerScore}`;
+    });
+
+    // OLD LOGIC
+    // for (let i = 0; i < 5; i++) {}
+
+    // let i = 0;
+    // let humanChoice = getHumanChoice();
+    // let computerChoice = getComputerChoice();
+    // let result = playRound(humanChoice, computerChoice);
+
+    // console.log(`Round ${i + 1}:`);
+    // console.log(`You chose: ${humanChoice}`);
+    // console.log(`Computer chose: ${computerChoice}`);
+    // console.log(result);
+    // console.log(`Score => Human: ${humanScore}, Computer: ${computerScore}`);
+    // console.log("-------------------------");
+    // // }
+
+    // if (humanScore > computerScore) {
+    //     console.log("🎉 Human wins the game!");
+    // } else if (computerScore > humanScore) {
+    //     console.log("💻 Computer wins the game!");
+    // } else {
+    //     console.log("🤝 The game is a draw!");
+    // }
 }
 
 playGame();
